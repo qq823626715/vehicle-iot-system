@@ -1,0 +1,116 @@
+// 文本样式
+@mixin text-primary {
+  color: map-get($theme-colors, 'text-primary');
+}
+
+@mixin text-secondary {
+  color: map-get($theme-colors, 'text-secondary');
+  font-size: 14px;
+}
+
+@mixin text-tertiary {
+  color: map-get($theme-colors, 'text-tertiary');
+  font-size: 12px;
+}
+
+// 文字截断混入
+@mixin text-ellipsis($lines: 1) {
+  /* #ifndef MP-WEIXIN */
+  @if $lines == 1 {
+    white-space: nowrap;
+  }
+  /* #endif */
+  @if $lines == 1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    display: block;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// 布局工具
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+// 组件样式
+@mixin card-style {
+  background: map-get($theme-colors, 'content-bg');
+  border-radius: map-get($border-radius, 'base');
+  padding: map-get($spacing, 'base');
+  margin-bottom: map-get($spacing, 'base');
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@mixin tag-style($color) {
+  background: rgba($color, 0.2);
+  color: $color;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+@mixin input-style {
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid map-get($theme-colors, 'border');
+  border-radius: map-get($border-radius, 'sm');
+  padding: 10px 12px;
+  color: map-get($theme-colors, 'text-primary');
+}
+
+@mixin progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+
+  &::-webkit-progress-bar {
+    background: transparent;
+  }
+  &::-webkit-progress-value {
+    background: map-get($theme-colors, 'primary');
+    border-radius: 3px;
+  }
+}
+
+// 增强版：支持圆角和背景色
+@mixin square($size, $radius: 0, $bg: null) {
+  width: $size;
+  height: $size;
+  @if $radius != 0 {
+    border-radius: $radius;
+  }
+  @if $bg {
+    background: $bg;
+  }
+}
+
+// 圆形元素
+@mixin circle($size, $bg: null) {
+  @include square($size);
+  border-radius: 50%;
+  @if $bg {
+    background: $bg;
+  }
+}
+
+// 绝对定位居中
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

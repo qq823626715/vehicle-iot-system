@@ -1,0 +1,38 @@
+.button {
+  &-primary {
+    background-color: map-get($theme-colors, primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: map-get($border-radius, small) !important;
+    padding: 10px 20px !important;
+    
+    &[disabled] {
+      opacity: 0.6;
+    }
+  }
+  
+  &-secondary {
+    background-color: rgba(56, 56, 56, 0.9) !important;
+    color: white !important;
+    border: 1px solid map-get($theme-colors, border) !important;
+  }
+}
+.form {
+  &-input {
+    background-color: rgba(40, 40, 40, 0.8) !important;
+    color: map-get($theme-colors, text-primary) !important;
+    border: 1px solid map-get($theme-colors, border) !important;
+    border-radius: map-get($border-radius, small) !important;
+    padding: 10px 12px !important;
+    
+    &::placeholder {
+      color: map-get($theme-colors, text-tertiary);
+    }
+  }
+  
+  &-label {
+    color: map-get($theme-colors, text-secondary);
+    margin-bottom: 8px;
+    display: block;
+  }
+}

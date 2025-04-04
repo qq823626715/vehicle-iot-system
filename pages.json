@@ -1,17 +1,69 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
+  "pages": [
+    {
+      "path": "pages/status/index"
+    },
+    {
+      "path": "pages/faults/index"
+    },
+    {
+      "path": "pages/security/index"
+    },
+    {
+      "path": "pages/management/index"
+    },
+    {
+      "path": "pages/ota/index"
+    }
+  ],
+  "tabBar": {
+    "custom": false,
+    "color": "#8E8E93",
+    "selectedColor": "#4CAF50",
+    "backgroundColor": "#1c1c1c",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/status/index",
+        "text": "状态监控",
+        "iconPath": "/static/tabs/status.png",
+        "selectedIconPath": "/static/tabs/status-active.png"
+      },
+      {
+        "pagePath": "pages/faults/index",
+        "text": "历史故障",
+        "iconPath": "/static/tabs/faults.png",
+        "selectedIconPath": "/static/tabs/faults-active.png"
+      },
+      {
+        "pagePath": "pages/security/index",
+        "text": "安全防护",
+        "iconPath": "/static/tabs/security.png",
+        "selectedIconPath": "/static/tabs/security-active.png"
+      },
+      {
+        "pagePath": "pages/management/index",
+        "text": "车辆管理",
+        "iconPath": "/static/tabs/management.png",
+        "selectedIconPath": "/static/tabs/management-active.png"
+      },
+      {
+        "pagePath": "pages/ota/index",
+        "text": "OTA更新",
+        "iconPath": "/static/tabs/ota.png",
+        "selectedIconPath": "/static/tabs/ota-active.png"
+      }
+    ]
+  },
+  "subPackages": [],
+  "preloadRule": {},
+  "condition": {
+    "current": 0,
+    "list": [
+      {
+        "name": "状态监控",
+        "path": "pages/status/index"
+      }
+    ]
+  }
 }

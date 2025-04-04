@@ -1,0 +1,26 @@
+{
+  "name": "vehicle-iot-system",
+  "version": "1.0.0",
+  "description": "车辆物联管理系统",
+  "main": "main.js",
+  "scripts": {
+    "dev": "npm run dev:mp-weixin",
+    "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
+    "build:mp-weixin": "cross-env NODE_ENV=production UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
+    "build:scss": "sass src/styles:dist/styles --no-source-map",
+    "watch:scss": "sass src/styles:dist/styles --watch"
+  },
+  "dependencies": {
+    "@dcloudio/uni-ui": "^1.4.20",
+    "vuex": "^3.6.2",
+    "sass": "^1.32.13"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "~4.5.0",
+    "cross-env": "^7.0.3",
+    "sass-loader": "^10.2.0",
+    "node-sass": "^7.0.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
