@@ -3,9 +3,6 @@
     <!-- 顶部车辆选择器 -->
     <vehicle-selector @change="handleVehicleChange" />
     
-    <!-- 车辆信息卡片 -->
-    <!-- <info-card :vehicle="currentVehicle" /> -->
-    
     <!-- 筛选区域 -->
     <view class="filter-section">
       <picker mode="date" fields="month" @change="dateChange">
@@ -169,13 +166,9 @@
 </template>
 
 <script>
-import VehicleSelector from '@/components/VehicleSelector.vue'
-import InfoCard from '@/components/InfoCard.vue'
 
 export default {
   components: {
-    VehicleSelector,
-    InfoCard
   },
   data() {
     return {

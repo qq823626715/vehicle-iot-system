@@ -18,7 +18,7 @@
         class="data-item"
         :class="[item.status, item.trend, { 'updated': updateFlags[key] }]"
       >
-        <text class="label">{{ key }}</text>
+        <text class="label">{{ key }}：</text>
         <text class="value">
           {{ item.value }}
           <text v-if="item.unit" class="unit">{{ item.unit }}</text>
@@ -135,8 +135,9 @@ export default {
       }
 
       .label {
-        @include text-secondary;
-        margin-bottom: 4px;
+        // @include text-secondary;
+        @include text-primary;
+        // margin-bottom: 4px;
       }
 
       .value {
