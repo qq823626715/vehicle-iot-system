@@ -34,13 +34,6 @@
       :data="thermalSystem"
       refresh-rate="1000"
     />
-    
-    <view class="card">
-      <view class="card-header">
-        <text>位置信息</text>
-      </view>
-      <map :latitude="location.latitude" :longitude="location.longitude" class="map"></map>
-    </view>
     <PageBg />
   </view>
 </template>
@@ -67,11 +60,7 @@ export default {
       operationSystem: {},
       batterySystem: {},
       thermalSystem: {},
-      updateInterval: null,
-      location: {
-        latitude: 39.909,
-        longitude: 116.397
-      }
+      updateInterval: null
     }
   },
   filters: {

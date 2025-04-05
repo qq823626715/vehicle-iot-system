@@ -82,8 +82,8 @@
         {
           "pagePath": "pages/my/index",
           "text": "我的",
-          "iconPath": "/static/tabs/management.png",
-          "selectedIconPath": "/static/tabs/management-active.png"
+          "iconPath": "/static/tabs/my.png",
+          "selectedIconPath": "/static/tabs/my-active.png"
         }
       ]
     },

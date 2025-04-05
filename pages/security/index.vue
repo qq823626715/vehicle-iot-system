@@ -9,8 +9,16 @@
         {{securityStatus.allSecure ? '所有系统正常' : '检测到安全问题!'}}
       </text>
     </view>
-    
     <view class="card">
+      <view class="card-header">
+        <text>消防系统状态</text>
+        <text class="status" :class="{'active': securityStatus.fireProtection}">
+          {{securityStatus.fireProtection ? '异常' : '正常'}}
+        </text>
+      </view>
+      <text class="card-desc">检测消防系统状态</text>
+    </view>
+    <!-- <view class="card">
       <view class="card-header">
         <text>防盗系统</text>
         <switch :checked="securityStatus.antiTheft" @change="toggleAntiTheft" color="#4CAF50"></switch>
@@ -35,6 +43,12 @@
       </view>
       <text class="card-desc">车辆超出设定区域时发送警报</text>
       <button size="mini" @click="setGeoFence">设置围栏</button>
+    </view> -->
+    <view class="card">
+      <view class="card-header">
+        <text>位置信息</text>
+      </view>
+      <map :latitude="location.latitude" :longitude="location.longitude" class="map"></map>
     </view>
     
     <view class="emergency">
@@ -54,7 +68,12 @@ export default {
         allSecure: true,
         antiTheft: true,
         collision: false,
+        fireProtection: false,
         geoFence: false
+      },
+      location: {
+        latitude: 28.578,
+        longitude: 121.534
       }
     }
   },

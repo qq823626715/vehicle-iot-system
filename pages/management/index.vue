@@ -50,14 +50,14 @@ export default {
           name: '公司商务车',
           plate: '京A12345',
           online: true,
-          image: '/static/icons/car1.png'
+          image: '/static/icons/car-default.png'
         },
         {
           id: '002',
           name: '物流运输车',
           plate: '京B56789',
           online: false,
-          image: '/static/icons/car2.png'
+          image: '/static/icons/car-default.png'
         },
         {
           id: '003',

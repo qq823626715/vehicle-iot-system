@@ -8,16 +8,32 @@
       }
     },
     {
-      "path": "pages/faults/index"
+      "path": "pages/faults/index",
+      "style": {
+        "navigationBarTitleText": "故障记录",
+        "enablePullDownRefresh": false
+      }
     },
     {
-      "path": "pages/security/index"
+      "path": "pages/security/index",
+      "style": {
+        "navigationBarTitleText": "安全防护",
+        "enablePullDownRefresh": false
+      }
     },
     {
-      "path": "pages/management/index"
+      "path": "pages/management/index",
+      "style": {
+        "navigationBarTitleText": "车辆管理",
+        "enablePullDownRefresh": false
+      }
     },
     {
-      "path": "pages/ota/index"
+      "path": "pages/ota/index",
+      "style": {
+        "navigationBarTitleText": "OTA更新",
+        "enablePullDownRefresh": false
+      }
     },
     {
       "path": "pages/my/index",
@@ -75,8 +91,8 @@
       {
         "pagePath": "pages/my/index",
         "text": "我的",
-        "iconPath": "/static/tabs/management.png",
-        "selectedIconPath": "/static/tabs/management-active.png"
+        "iconPath": "/static/tabs/my.png",
+        "selectedIconPath": "/static/tabs/my-active.png"
       }
     ]
   },
