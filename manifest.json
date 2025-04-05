@@ -52,7 +52,7 @@
       "custom": false,
       "color": "#8E8E93",
       "selectedColor": "#4CAF50",
-      "backgroundColor": "#1c1c1c",
+      "backgroundColor": "#FFFFFF",
       "borderStyle": "white",
       "list": [
         {
@@ -74,16 +74,16 @@
           "selectedIconPath": "/static/tabs/security-active.png"
         },
         {
-          "pagePath": "pages/management/index",
-          "text": "车辆管理",
-          "iconPath": "/static/tabs/management.png",
-          "selectedIconPath": "/static/tabs/management-active.png"
-        },
-        {
           "pagePath": "pages/ota/index",
           "text": "OTA更新",
           "iconPath": "/static/tabs/ota.png",
           "selectedIconPath": "/static/tabs/ota-active.png"
+        },
+        {
+          "pagePath": "pages/my/index",
+          "text": "我的",
+          "iconPath": "/static/tabs/management.png",
+          "selectedIconPath": "/static/tabs/management-active.png"
         }
       ]
     },

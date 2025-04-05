@@ -40,11 +40,14 @@
     <view class="emergency">
       <button type="warn" @click="emergencyCall">紧急求助</button>
     </view>
+    <PageBg />
   </view>
 </template>
 
 <script>
 export default {
+  components: {
+  },
   data() {
     return {
       securityStatus: {

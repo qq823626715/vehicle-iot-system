@@ -39,11 +39,14 @@
         <text class="desc">{{item.description}}</text>
       </view>
     </view>
+    <PageBg />
   </view>
 </template>
 
 <script>
 export default {
+  components: {
+  },
   data() {
     return {
       currentVersion: 'V2.1.5',

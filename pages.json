@@ -1,7 +1,11 @@
 {
   "pages": [
     {
-      "path": "pages/status/index"
+      "path": "pages/status/index",
+      "style": {
+        "navigationBarTitleText": "状态监控",
+        "enablePullDownRefresh": false
+      }
     },
     {
       "path": "pages/faults/index"
@@ -14,13 +18,34 @@
     },
     {
       "path": "pages/ota/index"
+    },
+    {
+      "path": "pages/my/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/my/bind-car",
+      "style": {
+        "navigationBarTitleText": "车辆绑定",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/my/setting",
+      "style": {
+        "navigationBarTitleText": "设置",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "tabBar": {
     "custom": false,
-    "color": "#8E8E93",
-    "selectedColor": "#4CAF50",
-    "backgroundColor": "#1c1c1c",
+    "color": "#999",
+    "selectedColor": "#1c1c1c",
+    "backgroundColor": "#fff",
     "borderStyle": "white",
     "list": [
       {
@@ -42,16 +67,16 @@
         "selectedIconPath": "/static/tabs/security-active.png"
       },
       {
-        "pagePath": "pages/management/index",
-        "text": "车辆管理",
-        "iconPath": "/static/tabs/management.png",
-        "selectedIconPath": "/static/tabs/management-active.png"
-      },
-      {
         "pagePath": "pages/ota/index",
         "text": "OTA更新",
         "iconPath": "/static/tabs/ota.png",
         "selectedIconPath": "/static/tabs/ota-active.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "/static/tabs/management.png",
+        "selectedIconPath": "/static/tabs/management-active.png"
       }
     ]
   },
@@ -65,5 +90,11 @@
         "path": "pages/status/index"
       }
     ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "标题",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#f8f8f8"
   }
 }

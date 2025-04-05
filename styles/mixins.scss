@@ -46,9 +46,18 @@
   align-items: center;
 }
 
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // 组件样式
 @mixin card-style {
   background: map-get($theme-colors, 'content-bg');
+  backdrop-filter: blur(2px);    /* 毛玻璃效果 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: map-get($theme-colors, 'text-primary');
   border-radius: map-get($border-radius, 'base');
   padding: map-get($spacing, 'base');
   margin-bottom: map-get($spacing, 'base');
@@ -104,6 +113,29 @@
   border-radius: 50%;
   @if $bg {
     background: $bg;
+  }
+}
+
+// 状态指示器
+@mixin status-indicator {
+  &::before {
+    content: '';
+    display: inline-block;
+    @include square(8px);
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  &.normal::before {
+    background: map-get($theme-colors, 'success');
+  }
+
+  &.warning::before {
+    background: map-get($theme-colors, 'warning');
+  }
+
+  &.error::before {
+    background: map-get($theme-colors, 'error');
   }
 }
 

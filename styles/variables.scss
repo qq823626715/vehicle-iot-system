@@ -1,8 +1,8 @@
 // 颜色变量
 $theme-colors: (
-  background: rgba(0, 0, 0, 0.7),
-  content-bg: rgba(28, 28, 28, 0.8),
-  text-primary: #ffffff,
+  background: #FFFFFF,
+  content-bg: rgba(120, 120, 120, 0.7), /* 灰色半透明背景 */
+  text-primary: #fff,                  /* 白色文字 */
   text-secondary: rgba(255, 255, 255, 0.7),
   text-tertiary: rgba(255, 255, 255, 0.5),
   border: rgba(255, 255, 255, 0.1),
@@ -11,6 +11,23 @@ $theme-colors: (
   warning: #ff9800,
   error: #f44336
 );
+
+// 字体大小系统
+$font-size: (
+  xs: 10px,
+  sm: 12px,
+  base: 14px,
+  lg: 16px,
+  xl: 18px
+);
+
+// 动画曲线
+$transition-timing: cubic-bezier(0.25, 0.8, 0.5, 1);
+
+// 用户界面相关
+$avatar-size: 60px;
+$menu-item-height: 50px;
+$logout-btn-color: #f44336;
 
 // 尺寸变量
 $spacing: (

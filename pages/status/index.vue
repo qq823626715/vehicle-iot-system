@@ -3,32 +3,37 @@
     <view class="header">
       <text class="title">车辆状态监控</text>
     </view>
+    <!-- <InfoCard /> -->
+    <vehicle-selector 
+      @change="handleVehicleSwitch"
+    />
+    <!-- 整车状态 -->
+    <status-card 
+      title="整车状态" 
+      :data="vehicleStatus" 
+      refresh-rate="1000"
+    />
     
-    <view class="card">
-      <view class="card-header">
-        <text>实时数据</text>
-        <text class="time">{{currentTime}}</text>
-      </view>
-      
-      <view class="status-grid">
-        <view class="status-item">
-          <text class="label">车速</text>
-          <text class="value">{{status.speed | fixedTwo }} km/h</text>
-        </view>
-        <view class="status-item">
-          <text class="label">发动机转速</text>
-          <text class="value">{{status.rpm | fixedTwo}} rpm</text>
-        </view>
-        <view class="status-item">
-          <text class="label">水温</text>
-          <text class="value">{{status.temperature | fixedTwo}} °C</text>
-        </view>
-        <view class="status-item">
-          <text class="label">剩余油量</text>
-          <text class="value">{{status.fuel | fixedTwo}} %</text>
-        </view>
-      </view>
-    </view>
+    <!-- 作业系统 -->
+    <status-card
+      title="作业系统"
+      :data="operationSystem"
+      refresh-rate="1000"
+    />
+    
+    <!-- 动力电池 -->
+    <status-card
+      title="动力电池"
+      :data="batterySystem"
+      refresh-rate="1000"
+    />
+    
+    <!-- 热管理系统 -->
+    <status-card
+      title="热管理系统"
+      :data="thermalSystem"
+      refresh-rate="1000"
+    />
     
     <view class="card">
       <view class="card-header">
@@ -36,11 +41,19 @@
       </view>
       <map :latitude="location.latitude" :longitude="location.longitude" class="map"></map>
     </view>
+    <PageBg />
   </view>
 </template>
 
 <script>
+import InfoCard from '@/components/InfoCard.vue'
+import StatusCard from '@/components/StatusCard.vue'
+import mockService from '@/utils/mockService'
 export default {
+  components: {
+    InfoCard,
+    StatusCard
+  },
   data() {
     return {
       currentTime: '',
@@ -50,6 +63,11 @@ export default {
         temperature: 85,
         fuel: 45
       },
+      vehicleStatus: {},
+      operationSystem: {},
+      batterySystem: {},
+      thermalSystem: {},
+      updateInterval: null,
       location: {
         latitude: 39.909,
         longitude: 116.397
@@ -62,21 +80,120 @@ export default {
     }
   },
   mounted() {
-    this.updateTime()
-    setInterval(this.updateTime, 1000)
-    // 模拟实时数据更新
-    setInterval(() => {
-      this.status.speed = Math.max(0, this.status.speed + (Math.random() - 0.5) * 5)
-      this.status.rpm = Math.max(800, this.status.rpm + (Math.random() - 0.5) * 100)
-      this.status.temperature = Math.max(70, Math.min(110, this.status.temperature + (Math.random() - 0.5) * 2))
-      this.status.fuel = Math.max(0, Math.min(100, this.status.fuel - 0.1))
-    }, 2000)
+    this.initData()
+    this.startMockUpdate()
   },
   methods: {
-    updateTime() {
-      const now = new Date()
-      this.currentTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+    initData() {
+      const initialData = mockService.getMockData()
+      console.log(initialData)
+      this.vehicleStatus = this.formatData(initialData.vehicle, 'vehicle')
+      this.operationSystem = this.formatData(initialData.operation, 'operation')
+      this.batterySystem = this.formatData(initialData.battery, 'battery')
+      this.thermalSystem = this.formatData(initialData.thermal, 'thermal')
+    },
+    formatData(rawData, systemType) {
+    // 系统字段映射表
+    const fieldMaps = {
+      vehicle: {
+        batteryVoltage: '蓄电池电压',
+        lockStatus: '解锁状态',
+        readyStatus: 'READY状态',
+        parkingBrake: '手刹状态',
+        gear: '档位状态',
+        brake: '制动状态',
+        speed: '车速',
+        mileage: '总里程',
+        ops: 'OPS状态',
+        coolantTemp: '冷却水温',
+        fan: '散热风扇状态',
+        powerMode: '动力模式',
+        fault: '故障状态'
+      },
+      operation: {
+        lift: '举升状态',
+        tilt: '倾斜状态',
+        shift: '侧移状态',
+        flip: '翻转状态',
+        pumpRpm: '油泵电机转速',
+        pumpTorque: '油泵电机扭矩',
+        pumpCurrent: '油泵电机电流',
+        pumpVoltage: '油泵电机电压',
+        hydraulicPressure: '液压系统压力'
+      },
+      battery: {
+        voltage: '电压',
+        current: '电流',
+        soc: 'SOC'
+      },
+      thermal: {
+        compressor: '压缩机状态',
+        expansionValve: '电子膨胀阀状态',
+        coolingPump: '冷却水泵状态',
+        circulationPump: '循环泵状态',
+        ptc: 'PTC状态'
+      }
     }
+
+    const formattedData = {}
+    
+    Object.keys(rawData).forEach(key => {
+      // 跳过系统内部字段
+      if (key.startsWith('_')) return
+      
+      // 获取中文显示名称
+      const displayName = fieldMaps[systemType]?.[key] || key
+      
+      // 处理数值精度
+      let displayValue = rawData[key].value
+      if (typeof displayValue === 'number') {
+        displayValue = this.$options.filters.fixedTwo(displayValue)
+      }
+
+      formattedData[displayName] = {
+        ...rawData[key],
+        value: displayValue,
+        // 增强异常状态显示
+        status: rawData[key].status || 'normal',
+        class: rawData[key].status === 'error' ? 'error-text' : ''
+      }
+    })
+
+    return formattedData
+  },
+    startMockUpdate() {
+      // 初始化首次数据
+      const initialData = mockService.getMockData()
+      this.vehicleStatus = this.formatData(initialData.vehicle, 'vehicle')
+      this.operationSystem = this.formatData(initialData.operation, 'operation')
+      this.batterySystem = this.formatData(initialData.battery, 'battery')
+      this.thermalSystem = this.formatData(initialData.thermal, 'thermal')
+
+      // 启动定时更新
+      this.updateInterval = setInterval(() => {
+        const newData = mockService.getMockData({
+          vehicle: this.vehicleStatus,
+          operation: this.operationSystem,
+          battery: this.batterySystem,
+          thermal: this.thermalSystem
+        })
+
+        // 带过渡效果的数据更新
+        this.$set(this, 'vehicleStatus', this.formatData(newData.vehicle, 'vehicle'))
+        this.$set(this, 'operationSystem', this.formatData(newData.operation, 'operation'))
+        this.$set(this, 'batterySystem', this.formatData(newData.battery, 'battery'))
+        this.$set(this, 'thermalSystem', this.formatData(newData.thermal, 'thermal'))
+
+        // 触发数据更新动画
+        this.$forceUpdate()
+      }, 5000)
+    },
+    handleVehicleSwitch() {
+      uni.alert('切换车辆')
+    }
+  },
+   beforeDestroy() {
+    clearInterval(this.updateInterval)
   }
 }
 </script>

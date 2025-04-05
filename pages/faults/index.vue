@@ -26,6 +26,7 @@
         </view>
       </view>
     </view>
+    <PageBg />
   </view>
 </template>
 

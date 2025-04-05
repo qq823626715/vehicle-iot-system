@@ -2,6 +2,12 @@ import App from './App'
 import '@/styles/variables.scss';
 import '@/styles/mixins.scss';
 
+import PageBg from '@/components/PageBg.vue'
+import VehicleSelector from '@/components/VehicleSelector.vue'
+
+Vue.component('page-bg', PageBg)
+Vue.component('vehicle-selector', VehicleSelector)
+
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'

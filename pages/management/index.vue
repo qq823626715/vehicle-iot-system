@@ -29,6 +29,7 @@
       <uni-popup-dialog mode="input" title="添加车辆" :value="currentVehicle.name" 
         placeholder="请输入车辆名称" @confirm="confirmAdd"></uni-popup-dialog>
     </uni-popup>
+    <PageBg />
   </view>
 </template>
 

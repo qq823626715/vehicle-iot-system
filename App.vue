@@ -2,6 +2,17 @@
 export default {
   onLaunch: function() {
     console.log('App Launch')
+    // uni.setNavigationBarColor({
+    //   frontColor: '#ffffff', // 白色文字
+    //   backgroundColor: '#00000000' // 透明背景
+    // })
+  },
+  onLoad: function() {
+    console.log('App onLoad')
+    uni.setNavigationBarColor({
+      frontColor: '#ffffff', // 白色文字
+      backgroundColor: '#00000000' // 透明背景
+    })
   },
   onShow: function() {
     console.log('App Show')
@@ -16,6 +27,11 @@ export default {
 
 page {
   background-color: map-get($theme-colors, background) !important;
+  // background-image: url('./static/page-bg.jpg');
+  // background-position-x: center;
+  // background-position-y: top;
+  // background-size: contain;
+  // background-repeat: no-repeat;
   color: map-get($theme-colors, text-primary);
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
