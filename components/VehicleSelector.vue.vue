@@ -1,48 +1,51 @@
 <template>
-  <view class="vehicle-selector">
-    <!-- 当前车辆卡片 -->
-    <view class="vehicle-card" @click="togglePopup">
-      <view class="vehicle-info">
-        <text class="vin">VIN: {{ currentVehicle.vin }}</text>
-        <text class="name">{{ currentVehicle.name }}</text>
-        <view class="versions">
-          <text v-for="(ver, key) in versionFields" :key="key">
+  <!-- 模板部分保持不变，只修改class名称 -->
+  <view class="vs-container">
+    <view class="vs-card" @click="togglePopup">
+      <view class="vs-info">
+        <text class="vs-vin">VIN: {{ currentVehicle.vin }}</text>
+        <text class="vs-name">{{ currentVehicle.name }}</text>
+        <view class="vs-versions">
+          <text 
+            class="vs-version-item"
+            v-for="(ver, key) in versionFields" 
+            :key="key"
+          >
             {{ ver.label }}: {{ currentVehicle[ver.field] }}
           </text>
         </view>
       </view>
-      <text class="arrow">▼</text>
+      <text class="vs-arrow">▼</text>
     </view>
 
-    <!-- 自定义弹窗 -->
     <view 
-      class="vehicle-popup" 
-      :class="{ 'popup-show': showPopup }"
-      @touchmove.stop.prevent
+      class="vs-popup" 
+      :class="{ 'vs-popup-show': showPopup }"
+      @touchmove.stop.prevent="noop"
     >
-      <view class="popup-mask" @click="closePopup"></view>
-      <view class="popup-content">
-        <view class="popup-header">
-          <text class="title">选择车辆</text>
-          <text class="close-btn" @click="closePopup">×</text>
+      <view class="vs-mask" @click="closePopup"></view>
+      <view class="vs-popup-content">
+        <view class="vs-popup-header">
+          <text class="vs-popup-title">选择车辆</text>
+          <text class="vs-popup-close" @click="closePopup">×</text>
         </view>
         
-        <scroll-view scroll-y class="vehicle-list">
+        <scroll-view scroll-y class="vs-list">
           <view 
             v-for="item in filteredVehicles" 
             :key="item.vin"
-            class="vehicle-item"
-            :class="{ 'active': item.vin === currentVehicle.vin }"
+            class="vs-item"
+            :class="{ 'vs-item-active': item.vin === currentVehicle.vin }"
             @click="selectVehicle(item)"
           >
-            <view class="item-left">
+            <view class="vs-item-left">
               <text 
-                class="check-icon"
+                class="vs-check-icon"
                 v-if="item.vin === currentVehicle.vin"
               >✓</text>
-              <text class="item-name">{{ item.name }}</text>
+              <text class="vs-item-name">{{ item.name }}</text>
             </view>
-            <text class="item-vin">{{ item.vin }}</text>
+            <text class="vs-item-vin">{{ item.vin }}</text>
           </view>
         </scroll-view>
       </view>
@@ -52,18 +55,6 @@
 
 <script>
 export default {
-  props: {
-    // vehicles: {
-    //   type: Array,
-    //   default: () => [],
-    //   validator: value => {
-    //     return value.every(item => 
-    //       item.vin && item.name && 
-    //       item.vcuVersion && item.pumpVersion && item.driveVersion
-    //     )
-    //   }
-    // }
-  },
   data() {
     return {
       showPopup: false,
@@ -94,21 +85,18 @@ export default {
           vcuVersion: 'v2.1.3',
           pumpVersion: 'v1.5.2',
           driveVersion: 'v3.0.1'
-        },
+        }
       ],
       currentVehicle: {
-          vin: 'LSVNV133X111111111',
-          name: '电动叉车-01',
-          vcuVersion: 'v2.1.3',
-          pumpVersion: 'v1.5.2',
-          driveVersion: 'v3.0.1'
+        vin: 'LSVNV133X111111111',
+        name: '电动叉车-01',
+        vcuVersion: 'v2.1.3',
+        pumpVersion: 'v1.5.2',
+        driveVersion: 'v3.0.1'
       }
     }
   },
   computed: {
-    // currentVehicle() {
-    //   return this.vehicles[0] || this.emptyVehicle()
-    // },
     filteredVehicles() {
       const query = this.searchQuery.toLowerCase()
       return this.vehicles.filter(item => 
@@ -118,15 +106,7 @@ export default {
     }
   },
   methods: {
-    emptyVehicle() {
-      return {
-        vin: '无车辆数据',
-        name: '暂无车辆',
-        vcuVersion: '--',
-        pumpVersion: '--',
-        driveVersion: '--'
-      }
-    },
+    noop() {},
     togglePopup() {
       this.showPopup = !this.showPopup
     },
@@ -142,17 +122,17 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
+<style lang="scss">
+/* 使用项目变量和混合，但修改选择器名称 */
 @import '@/styles/variables';
 @import '@/styles/mixins';
 
-.vehicle-selector {
+.vs-container {
   position: relative;
   z-index: 10;
 }
 
-.vehicle-card {
+.vs-card {
   @include flex-between;
   @include card-style;
   padding: map-get($spacing, 'base');
@@ -162,17 +142,17 @@ export default {
     transform: scale(0.98);
   }
 
-  .vehicle-info {
+  .vs-info {
     flex: 1;
     
-    .vin {
+    .vs-vin {
       @include text-tertiary;
       @include text-ellipsis;
       font-size: map-get($font-size, 'sm');
       margin-bottom: 4px;
     }
     
-    .name {
+    .vs-name {
       @include text-primary;
       @include text-ellipsis;
       font-size: map-get($font-size, 'lg');
@@ -180,28 +160,29 @@ export default {
       margin-bottom: map-get($spacing, 'sm');
     }
     
-    .versions {
+    .vs-versions {
       @include flex-align-center;
       gap: map-get($spacing, 'sm');
       
-      text {
+      .vs-version-item {
         @include text-secondary;
         font-size: map-get($font-size, 'sm');
         background: rgba(map-get($theme-colors, 'border'), 0.3);
         padding: 2px map-get($spacing, 'sm');
         border-radius: map-get($border-radius, 'sm');
+        margin-right: 8px;
       }
     }
   }
   
-  .arrow {
+  .vs-arrow {
     color: map-get($theme-colors, 'text-tertiary');
     margin-left: map-get($spacing, 'base');
   }
 }
 
 /* 弹窗样式 */
-.vehicle-popup {
+.vs-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -212,23 +193,23 @@ export default {
   transition: all 0.3s ease;
   z-index: 1000;
   
-  &.popup-show {
+  &.vs-popup-show {
     visibility: visible;
     opacity: 1;
     
-    .popup-content {
+    .vs-popup-content {
       transform: translateY(0);
     }
   }
 }
 
-.popup-mask {
+.vs-mask {
   @include square(100%);
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
 }
 
-.popup-content {
+.vs-popup-content {
   position: absolute;
   left: 0;
   right: 0;
@@ -242,30 +223,30 @@ export default {
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.popup-header {
+.vs-popup-header {
   @include flex-between;
   padding-bottom: map-get($spacing, 'base');
   border-bottom: 1px solid map-get($theme-colors, 'border');
   
-  .title {
+  .vs-popup-title {
     @include text-primary;
     font-size: map-get($font-size, 'xl');
     font-weight: bold;
   }
   
-  .close-btn {
+  .vs-popup-close {
     @include text-tertiary;
     font-size: map-get($font-size, 'xl');
     padding: map-get($spacing, 'sm');
   }
 }
 
-.vehicle-list {
+.vs-list {
   max-height: calc(70vh - 60px);
   padding-top: map-get($spacing, 'sm');
 }
 
-.vehicle-item {
+.vs-item {
   @include flex-between;
   padding: map-get($spacing, 'base') 0;
   border-bottom: 1px solid map-get($theme-colors, 'border');
@@ -274,27 +255,27 @@ export default {
     border-bottom: none;
   }
   
-  &.active {
+  &.vs-item-active {
     background: rgba(map-get($theme-colors, 'primary'), 0.05);
   }
   
-  .item-left {
+  .vs-item-left {
     @include flex-align-center;
     gap: map-get($spacing, 'sm');
     
-    .check-icon {
+    .vs-check-icon {
       color: map-get($theme-colors, 'primary');
       font-weight: bold;
       width: 16px;
     }
     
-    .item-name {
+    .vs-item-name {
       @include text-primary;
       font-weight: 500;
     }
   }
   
-  .item-vin {
+  .vs-item-vin {
     @include text-tertiary;
     font-size: map-get($font-size, 'sm');
   }
