@@ -4,7 +4,7 @@
     <view class="user-card">
       <view class="avatar-section">
         <image 
-          :src="userInfo.avatar || '/static/avatar-default.png'" 
+          :src="'/static/icons/avatar-default.png'" 
           class="avatar"
           @click="handleAvatarClick"
         />
