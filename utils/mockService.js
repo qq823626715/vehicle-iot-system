@@ -1,8 +1,50 @@
+// 系统字段映射表
+const fieldMaps = {
+  vehicle: {
+    batteryVoltage: '蓄电池电压',
+    lockStatus: '解锁状态',
+    readyStatus: 'READY',
+    parkingBrake: '手刹状态',
+    gear: '档位状态',
+    brake: '制动状态',
+    speed: '车速',
+    mileage: '总里程',
+    ops: 'OPS状态',
+    coolantTemp: '冷却水温',
+    fan: '散热风扇',
+    powerMode: '动力模式',
+    fault: '故障状态'
+  },
+  operation: {
+    lift: '举升状态',
+    tilt: '倾斜状态',
+    shift: '侧移状态',
+    flip: '翻转状态',
+    pumpRpm: '油泵电机转速',
+    pumpTorque: '油泵电机扭矩',
+    pumpCurrent: '油泵电机电流',
+    pumpVoltage: '油泵电机电压',
+    hydraulicPressure: '液压系统压力'
+  },
+  battery: {
+    voltage: '电压',
+    current: '电流',
+    soc: 'SOC'
+  },
+  thermal: {
+    compressor: '压缩机状态',
+    expansionValve: '电子膨胀阀状态',
+    coolingPump: '冷却水泵状态',
+    circulationPump: '循环泵状态',
+    ptc: 'PTC状态'
+  }
+}
+
 // 基础数据模板
 const baseData = {
   // 整车状态
   vehicle: {
-    batteryVoltage: { value: 22.5, min: 20, max: 25, unit: 'V' },
+    batteryVoltage: { value: 13.5, min: 13, max: 14, unit: 'V' },
     lockStatus: { options: ['已锁定', '未锁定'], unit: '' },
     readyStatus: { options: ['READY', 'OFF'], unit: '' },
     parkingBrake: { options: ['已拉手刹', '未拉手刹'], unit: '' },
@@ -13,7 +55,7 @@ const baseData = {
     ops: { options: ['正常', '异常'], unit: '' },
     coolantTemp: { value: 3.7, min: 0, max: 120, unit: '°C' },
     fan: { options: ['运行中', '停止'], unit: '' },
-    powerMode: { options: ['节能', '标准', '运动'], unit: '' },
+    powerMode: { options: ['经济', '标准', '强劲'], unit: '' },
     fault: { options: ['无故障', '电机故障', '电池故障'], unit: '' }
   },
 
@@ -32,7 +74,7 @@ const baseData = {
 
   // 动力电池
   battery: {
-    voltage: { value: 98.3, min: 80, max: 120, unit: 'V' },
+    voltage: { value: 320.3, min: 315, max: 325, unit: 'V' },
     current: { value: 26.0, min: -50, max: 50, unit: 'A' }, // 充电为负值
     soc: { value: 14.1, min: 0, max: 100, unit: '%' }
   },

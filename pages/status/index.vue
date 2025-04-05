@@ -3,7 +3,6 @@
     <view class="header">
       <text class="title">车辆状态监控</text>
     </view>
-    <!-- <InfoCard /> -->
     <vehicle-selector 
       @change="handleVehicleSwitch"
     />
@@ -11,40 +10,38 @@
     <status-card 
       title="整车状态" 
       :data="vehicleStatus" 
-      refresh-rate="1000"
+      :refresh-rate="refreshRate"
     />
     
     <!-- 作业系统 -->
     <status-card
       title="作业系统"
       :data="operationSystem"
-      refresh-rate="1000"
+      :refresh-rate="refreshRate"
     />
     
     <!-- 动力电池 -->
     <status-card
       title="动力电池"
       :data="batterySystem"
-      refresh-rate="1000"
+      :refresh-rate="refreshRate"
     />
     
     <!-- 热管理系统 -->
     <status-card
       title="热管理系统"
       :data="thermalSystem"
-      refresh-rate="1000"
+      :refresh-rate="refreshRate"
     />
     <PageBg />
   </view>
 </template>
 
 <script>
-import InfoCard from '@/components/InfoCard.vue'
 import StatusCard from '@/components/StatusCard.vue'
 import mockService from '@/utils/mockService'
 export default {
   components: {
-    InfoCard,
     StatusCard
   },
   data() {
@@ -56,6 +53,7 @@ export default {
         temperature: 85,
         fuel: 45
       },
+      refreshRate: 3000,
       vehicleStatus: {},
       operationSystem: {},
       batterySystem: {},
@@ -87,7 +85,7 @@ export default {
       vehicle: {
         batteryVoltage: '蓄电池电压',
         lockStatus: '解锁状态',
-        readyStatus: 'READY状态',
+        readyStatus: 'READY',
         parkingBrake: '手刹状态',
         gear: '档位状态',
         brake: '制动状态',
@@ -95,7 +93,7 @@ export default {
         mileage: '总里程',
         ops: 'OPS状态',
         coolantTemp: '冷却水温',
-        fan: '散热风扇状态',
+        fan: '散热风扇',
         powerMode: '动力模式',
         fault: '故障状态'
       },
@@ -175,7 +173,7 @@ export default {
 
         // 触发数据更新动画
         this.$forceUpdate()
-      }, 5000)
+      }, this.refreshRate)
     },
     handleVehicleSwitch() {
       uni.alert('切换车辆')
